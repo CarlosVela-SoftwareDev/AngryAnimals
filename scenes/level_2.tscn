@@ -1,0 +1,46 @@
+[gd_scene load_steps=4 format=3 uid="uid://bynccy88gilqp"]
+
+[ext_resource type="PackedScene" uid="uid://ykntw8neylem" path="res://scenes/level.tscn" id="1_nrorh"]
+[ext_resource type="PackedScene" uid="uid://5uuwlulauxh7" path="res://scenes/cup.tscn" id="2_p1qua"]
+[ext_resource type="PackedScene" uid="uid://bvwhn0k1sccih" path="res://scenes/Wall.tscn" id="3_i6oni"]
+
+[node name="Level2" instance=ExtResource("1_nrorh")]
+
+[node name="Cup" parent="." index="4" instance=ExtResource("2_p1qua")]
+position = Vector2(325, 477)
+
+[node name="Cup3" parent="." index="5" instance=ExtResource("2_p1qua")]
+position = Vector2(862, 429)
+
+[node name="Cup4" parent="." index="6" instance=ExtResource("2_p1qua")]
+position = Vector2(458, 279)
+
+[node name="Cup5" parent="." index="7" instance=ExtResource("2_p1qua")]
+position = Vector2(321, 285)
+
+[node name="Cup6" parent="." index="8" instance=ExtResource("2_p1qua")]
+position = Vector2(633, 379)
+
+[node name="Wall" parent="." index="11" instance=ExtResource("3_i6oni")]
+position = Vector2(240, 199)
+rotation = -0.464309
+
+[node name="Wall2" parent="." index="12" instance=ExtResource("3_i6oni")]
+position = Vector2(939, 156)
+rotation = 0.15535
+
+[node name="Wall3" parent="." index="13" instance=ExtResource("3_i6oni")]
+position = Vector2(926, 231)
+rotation = 0.15535
+
+[node name="Wall4" parent="." index="14" instance=ExtResource("3_i6oni")]
+position = Vector2(932, 329)
+rotation = 0.15535
+
+[node name="Wall5" parent="." index="15" instance=ExtResource("3_i6oni")]
+position = Vector2(783, 341)
+rotation = -0.254263
+
+[node name="Wall6" parent="." index="16" instance=ExtResource("3_i6oni")]
+position = Vector2(779, 261)
+rotation = -0.254263

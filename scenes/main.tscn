@@ -1,0 +1,70 @@
+[gd_scene load_steps=5 format=3 uid="uid://dpnx8o2w7eyxh"]
+
+[ext_resource type="Texture2D" uid="uid://cmm8ogh4n4a4o" path="res://assets/env/MainBG.png" id="1_2ghkd"]
+[ext_resource type="AudioStream" uid="uid://c8g63i2iqn1sk" path="res://assets/audio/birdsong.wav" id="2_gbumc"]
+[ext_resource type="LabelSettings" uid="uid://ccchc3imhgivm" path="res://assets/LG_72_blue.tres" id="3_axa3c"]
+[ext_resource type="PackedScene" uid="uid://dgwykaa60yib6" path="res://scenes/level_button.tscn" id="4_wtiwv"]
+
+[node name="Main" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="TextureRect" type="TextureRect" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+texture = ExtResource("1_2ghkd")
+expand_mode = 3
+
+[node name="BirdSound" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("2_gbumc")
+autoplay = true
+
+[node name="MC" type="MarginContainer" parent="."]
+layout_mode = 1
+anchors_preset = 10
+anchor_right = 1.0
+offset_bottom = 23.0
+grow_horizontal = 2
+rotation = 0.0349066
+theme_override_constants/margin_top = 32
+
+[node name="Label" type="Label" parent="MC"]
+layout_mode = 2
+text = "ANGRY ANIMALS "
+label_settings = ExtResource("3_axa3c")
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="HB" type="HBoxContainer" parent="."]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -20.0
+offset_top = -20.0
+offset_right = 20.0
+offset_bottom = 20.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/separation = 48
+
+[node name="LevelButton" parent="HB" instance=ExtResource("4_wtiwv")]
+layout_mode = 2
+
+[node name="LevelButton2" parent="HB" instance=ExtResource("4_wtiwv")]
+layout_mode = 2
+level_number = 2
+
+[node name="LevelButton3" parent="HB" instance=ExtResource("4_wtiwv")]
+layout_mode = 2
+level_number = 3

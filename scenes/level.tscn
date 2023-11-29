@@ -1,18 +1,72 @@
-[gd_scene load_steps=4 format=3 uid="uid://c0nj3dvksk2kv"]
+[gd_scene load_steps=6 format=3 uid="uid://ykntw8neylem"]
 
 [ext_resource type="Texture2D" uid="uid://68y2gqucj8g5" path="res://assets/scene/colored_castle.png" id="1_yba23"]
-[ext_resource type="PackedScene" uid="uid://hnlqw4uvt1mu" path="res://scenes/cup.tscn" id="2_qlw8r"]
-[ext_resource type="PackedScene" uid="uid://cr3dc71eax0rt" path="res://scenes/animal.tscn" id="3_i68f1"]
+[ext_resource type="PackedScene" uid="uid://e2362alu43kd" path="res://scenes/game_ui.tscn" id="3_4b3me"]
+[ext_resource type="PackedScene" uid="uid://cnvfhe03msrwo" path="res://scenes/water.tscn" id="4_j51mo"]
+[ext_resource type="PackedScene" uid="uid://ca5f1s2kn1fqx" path="res://scenes/launch_area.tscn" id="4_qdego"]
+
+[sub_resource type="GDScript" id="GDScript_btue5"]
+script/source = "extends Node2D
+
+var animal_scene: PackedScene = preload(\"res://scenes/animal.tscn\")
+
+@onready var debug_label = $DebugLabel
+@onready var animal_start = $AnimalStart
+
+# Called when the node enters the scene tree for the first time.
+func _ready():
+	setup()
+	SignalManager.on_update_debug_label.connect(on_update_debug_label)
+	SignalManager.on_animal_died.connect(on_animal_died)
+	on_animal_died()
+
+# Called every frame. 'delta' is the elapsed time since the previous frame.
+func _process(_delta):
+	if Input.is_key_pressed(KEY_Q) == true:
+		GameManager.load_main_scene()
+
+func setup() -> void:
+	var tc = get_tree(). get_nodes_in_group(GameManager.GROUP_CUP)
+	ScoreManager.set_target_cups(tc.size())
+
+func on_animal_died() -> void:
+	var animal = animal_scene.instantiate()
+	animal.global_position = animal_start.global_position
+	add_child(animal)
+
+func on_update_debug_label(text: String) -> void:
+	debug_label.text = text
+"
 
 [node name="Level" type="Node2D"]
+script = SubResource("GDScript_btue5")
 
 [node name="ColoredCastle" type="Sprite2D" parent="."]
 position = Vector2(510, 273)
 scale = Vector2(1.2, 1.2)
 texture = ExtResource("1_yba23")
 
-[node name="Cup" parent="." instance=ExtResource("2_qlw8r")]
-position = Vector2(453, 452)
+[node name="DebugLabel" type="Label" parent="."]
+visible = false
+offset_left = 24.0
+offset_top = 24.0
+offset_right = 424.0
+offset_bottom = 184.0
+theme_override_colors/font_color = Color(0, 0, 0, 1)
+text = "Random text
+Random text
+Random text
+Random text
+Random text
+ 
+"
 
-[node name="Animal" parent="." instance=ExtResource("3_i68f1")]
-position = Vector2(417, 232)
+[node name="AnimalStart" type="Marker2D" parent="."]
+position = Vector2(117, 295)
+
+[node name="Water" parent="." instance=ExtResource("4_j51mo")]
+
+[node name="GameUI" parent="." instance=ExtResource("3_4b3me")]
+
+[node name="LaunchArea" parent="." instance=ExtResource("4_qdego")]
+position = Vector2(43, 345)

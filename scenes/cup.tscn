@@ -1,9 +1,49 @@
-[gd_scene load_steps=3 format=3 uid="uid://hnlqw4uvt1mu"]
+[gd_scene load_steps=8 format=3 uid="uid://5uuwlulauxh7"]
 
+[ext_resource type="Script" path="res://scenes/cup.gd" id="1_8yks7"]
 [ext_resource type="Texture2D" uid="uid://5wqev4qy3qtr" path="res://assets/env/elementWood004.png" id="1_mytmf"]
 [ext_resource type="Texture2D" uid="uid://cmgt5pmkl3pvh" path="res://assets/env/elementWood015.png" id="2_wibrb"]
+[ext_resource type="AudioStream" uid="uid://2ysek5xsx5jb" path="res://assets/audio/vanish.wav" id="4_kclsw"]
 
-[node name="Cup" type="StaticBody2D"]
+[sub_resource type="Animation" id="Animation_8k2ko"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Sprites:scale")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(0.5, 0.5)]
+}
+
+[sub_resource type="Animation" id="Animation_v8xi1"]
+resource_name = "vanish"
+length = 0.8
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Sprites:scale")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.1, 0.8),
+"transitions": PackedFloat32Array(1, 1, 1),
+"update": 0,
+"values": [Vector2(0.5, 0.5), Vector2(1, 1), Vector2(0, 0)]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_avn7q"]
+_data = {
+"RESET": SubResource("Animation_8k2ko"),
+"vanish": SubResource("Animation_v8xi1")
+}
+
+[node name="Cup" type="StaticBody2D" groups=["cup"]]
+script = ExtResource("1_8yks7")
 
 [node name="Sprites" type="Node2D" parent="."]
 scale = Vector2(0.5, 0.5)
@@ -24,3 +64,13 @@ flip_h = true
 
 [node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="."]
 polygon = PackedVector2Array(-54, -52, -54, 17, 55, 16, 55, -52, 19, -17, -19, -17)
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+libraries = {
+"": SubResource("AnimationLibrary_avn7q")
+}
+
+[node name="VanishSound" type="AudioStreamPlayer2D" parent="."]
+stream = ExtResource("4_kclsw")
+
+[connection signal="finished" from="VanishSound" to="." method="_on_vanish_sound_finished"]

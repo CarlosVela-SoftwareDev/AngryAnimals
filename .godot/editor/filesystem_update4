@@ -1,1 +1,8 @@
+res://scenes/level_button.tscn
+res://assets/LG_24_darkGray.tres
 res://scenes/level.tscn
+res://scenes/main.tscn
+res://scenes/animal.tscn
+res://scenes/cup.tscn
+res://scenes/game_ui.tscn
+res://scenes/level_2.tscn
